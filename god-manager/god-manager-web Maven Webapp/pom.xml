@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.godding</groupId>
+		<artifactId>god-manager</artifactId>
+		<version>1.0.0</version>
+	</parent>
+	<artifactId>god-manager-web</artifactId>
+	<packaging>war</packaging>
+	<name>god-manager-web</name>
+	<url>http://maven.apache.org</url>
+	<dependencies>
+		<dependency>
+			<groupId>com.godding</groupId>
+			<artifactId>god-manager-service</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.freemarker</groupId>
+			<artifactId>freemarker</artifactId>
+		</dependency>
+	</dependencies>
+	<build>
+		<finalName>god-manager-web</finalName>
+	</build>
+</project>
