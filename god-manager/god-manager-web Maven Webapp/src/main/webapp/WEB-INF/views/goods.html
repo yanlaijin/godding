@@ -23,13 +23,14 @@
 
 <script src="/static/ace-admin/js/ace-extra.js"></script>
 <script src="/static/ace-admin/js/bootstrap.js"></script>
+<script src="/static/js/goods/goods.js"></script>
 </head>
 <body>
 	<table id="simple-table" class="table table-bordered table-hover">
 		<thead>
 			<tr>
 				<th class="center" width="25px"><label class="pos-rel"> <input
-						type="checkbox" class="ace"> <span class="lbl"></span>
+						type="checkbox" id="parent_ck" class="ace"> <span class="lbl"></span>
 				</label></th>
 				<th width="25px">序号</th>
 				<!-- <th>商品图片</th> -->
@@ -49,7 +50,7 @@
 		<tbody>
 			<#list data.list as good>
 				<tr class="">
-					<td class="center"><label class="pos-rel"> <input type="checkbox" class="ace"> <span class="lbl"></span>
+					<td class="center"><label class="pos-rel"> <input type="checkbox" name="child_ck" class="ace"> <span class="lbl"></span>
 					</label></td>
 					<td>${good_index+1}</td>
 					<td>${good.id}</td>
