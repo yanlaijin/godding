@@ -10,11 +10,12 @@ $(function () {
             var childrenMenu = menu.parent("li");
             childrenMenu.addClass("active");
 			var parentMenu = childrenMenu.parent("ul");
+			var icon = parentMenu.siblings("a").children("i").data("cls");
             var htmlparam = null;
             if (parentMenu) {
-                htmlparam = "<li><i class='ace-icon fa "+parentMenu.data("cls")+" home-icon'></i> <a href='#'>"+menu.text()+"</a></li>"
+                htmlparam = "<li><i class='ace-icon fa "+icon+" home-icon'></i> <a href='#'>"+parentMenu.siblings("a").children("span").text()+"</a></li><li class='active'>"+menu.text()+"</li>"
             } else {
-                htmlparam = "<li><i class='ace-icon fa "+childrenMenu.data("cls")+" home-icon'></i> <a href='#'>menu.text()</a></li>"
+                htmlparam = "<li><i class='ace-icon fa "+icon+" home-icon'></i> <a href='#'>"+menu.text()+"</a></li>"
             }
             var labels = $("#breadcrumb");
             labels.html(htmlparam);
