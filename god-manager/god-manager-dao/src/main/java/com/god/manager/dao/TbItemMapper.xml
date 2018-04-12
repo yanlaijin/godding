@@ -9,10 +9,13 @@
     <result column="num" property="num" jdbcType="INTEGER" />
     <result column="barcode" property="barcode" jdbcType="VARCHAR" />
     <result column="image" property="image" jdbcType="VARCHAR" />
-    <result column="cid" property="cid" jdbcType="BIGINT" />
     <result column="status" property="status" jdbcType="TINYINT" />
     <result column="created" property="created" jdbcType="TIMESTAMP" />
     <result column="updated" property="updated" jdbcType="TIMESTAMP" />
+    <association property="itemCat" columnPrefix="c_" javaType="com.god.manager.domain.TbItemCat">
+    	<id column="id" property="id"/>
+    	<id column="name" property="name"/>
+    </association>
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from tb_item
@@ -48,7 +51,14 @@
     where id = #{id,jdbcType=BIGINT}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
-    select id, title, sell_point, price, num, barcode, image, cid, status, created, updated
-    from tb_item
+    select i.id, i.title, i.sell_point, i.price, i.num, i.barcode, i.image, i.cid, i.status, i.created, i.updated,
+    c.id as c_id,c.name as c_name
+    from tb_item i
+    inner join tb_item_cat c on i.cid = c.id
+    <where>
+    	<if test="keyword !=null ">and title like concat('%',#{keyword},'%')</if>
+    	<if test="beginDate !=null and beginDate !=''">and created &gt;#{beginDate}</if>
+    	<if test="endDate !=null and endDate !=''">and created &lt;#{endDate}</if>
+    </where>
   </select>
 </mapper>

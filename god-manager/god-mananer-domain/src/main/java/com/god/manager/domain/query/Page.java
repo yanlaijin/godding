@@ -1,7 +1,7 @@
-package com.god.manager.query;
+package com.god.manager.domain.query;
 
 
-public class Query {
+public class Page {
 	private Integer pageNum = 1;
 	private Integer pageSize = 10;
 	public Integer getPageNum() {

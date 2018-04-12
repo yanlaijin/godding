@@ -20,89 +20,220 @@
 <link rel="stylesheet" href="/static/ace-admin/css/ace.css"
 	class="ace-main-stylesheet" id="main-ace-style" />
 <link rel="stylesheet" href="/static/css/style.css" />
+<link rel="stylesheet"
+	href="/static/plugins/My97DatePicker/skin/WdatePicker.css" />
 <script src="/static/ace-admin/js/jquery.js"></script>
 
 <script src="/static/ace-admin/js/ace-extra.js"></script>
 <script src="/static/ace-admin/js/bootstrap.js"></script>
+<script src="/static/plugins/My97DatePicker/WdatePicker.js"></script>
 <script src="/static/js/goods/goods.js"></script>
 </head>
 <body>
-	<div class=" page-content clearfix">
-		<div class="clearfix" style="margin-top:12px;margin-bottom:10px">
-      	 <span class="input-icon input-icon-right">
-			<input type="text" placeholder="请输入商品名称" id="keyword">
-			<i class="ace-icon fa fa-leaf green"></i>
-		</span>
-       	<button type="button" class="btn btn-info btn-sm"><i class="ace-icon fa fa-search"></i>查询</button>
-			<span class="r_f"> 
-			<button type="button" class="btn btn-warning btn-sm"><i class="ace-icon fa fa-plus"></i>添加商品</a>
-			<button type="button" class="btn btn-danger btn-sm" style="margin-left:7px;"><iclass="ace-icon fa fa-trash-o bigger-120"></i>批量删除</a>
-			</span>
-		</div>
-		<div class="h_products_list clearfix">
-			<table id="simple-table" class="table table-bordered table-hover">
-				<thead>
-					<tr>
-						<th class="center" width="25px"><label class="pos-rel">
-								<input type="checkbox" id="parent_ck" class="ace"> <span
-								class="lbl"></span>
-						</label></th>
-						<th width="25px">序号</th>
-						<!-- <th>商品图片</th> -->
-						<th width="80px">商品编号</th>
-						<th width="200px">商品标题</th>
-						<th width="80px">商品价格（分）</th>
-						<th width="80px">库存数量</th>
-						<th width="100px">商品条形码</th>
-						<th width="100px">所属类目</th>
-						<th width="60px">商品状态</th>
-						<th width="140px">创建时间</th>
-						<th width="70px">操作</th>
-						<!-- <th class="hidden-480">Status</th> -->
-					</tr>
-				</thead>
-
-				<tbody>
-					<#list data.list as good>
-					<tr class="">
-						<td class="center"><label class="pos-rel"> <input
-								type="checkbox" name="child_ck" class="ace"> <span
-								class="lbl"></span>
-						</label></td>
-						<td>${good_index+1}</td>
-						<td>${good.id}</td>
-						<td>${good.title}</td>
-						<td>${good.price}</td>
-						<td>${good.num}</td>
-						<td>${(good.barcode)!''}</td>
-						<td>${good.cid}</td>
-						<td><#if good.status==1> <span
-								class="label label-sm label-success">正常</span> <#elseif
-								good.status==2> <span
-								class="label label-sm label-warning">下架</span> <#else> <span
-								class="label label-sm label-danger">删除</span></#if></td>
-						<td>${good.created?string("yyyy-MM-dd HH:mm:ss")}</td>
-						<td>
-							<div class="hidden-sm hidden-xs btn-group">
-								<button class="btn btn-xs btn-info">
-									<i class="ace-icon fa fa-pencil bigger-120"></i>
-								</button>
-								<button class="btn btn-xs btn-danger">
-									<i class="ace-icon fa fa-trash-o bigger-120"></i>
-								</button>
-
-							</div>
-						</td>
-					</tr>
-					</#list>
-				</tbody>
-			</table>
-			<div id="pageNum">
-				<!-- freemarker设置变量，因为分页页面要通用，每个页面的url不一样。 -->
-				<#assign url="/selectList.do">
-				<#include "pagination.html">
+	<form id="searchForm" method="post" action="/selectList.do">
+		<div class=" page-content clearfix">
+			<div class="clearfix" style="margin-top:12px;margin-bottom:10px">
+				<span class="input-icon input-icon-right"> <input type="text"
+					name="keyword" placeholder="请输入商品名称" id="keyword"
+					value="${qo.keyword !}"> <i
+					class="ace-icon fa fa-leaf green"></i>
+				</span> <span class="input-icon input-icon-right" id="beginTime_span">
+					<input type="text" id="beginTime" name="beginDate"
+					placeholder="请输入开始时间"
+					value="${(qo.beginDate?string('yyyy-MM-dd HH:mm:ss'))!}"> <i
+					class="ace-icon fa fa-calendar blue"></i>
+				</span> ~ <span class="input-icon input-icon-right" id="endTime_span">
+					<input type="text" id="endTime" name="endDate"
+					placeholder="请输入结束时间"
+					value="${(qo.endDate?string('yyyy-MM-dd HH:mm:ss'))!}"> <i
+					class="ace-icon fa fa-calendar blue"></i>
+				</span>
+				<button type="button" class="btn btn-info btn-sm" id="searchButton">
+					<i class="ace-icon fa fa-search"></i>查询
+				</button>
+				<span class="r_f">
+					<button type="button" class="btn btn-warning btn-sm"
+						data-toggle="modal" data-target="#myModal">
+						<i class="ace-icon fa fa-plus"></i>添加商品</a>
+						<button type="button" class="btn btn-danger btn-sm"
+							style="margin-left:7px;">
+							<iclass ="ace-icon fafa-trash-obigger-120"> </i>批量删除</a>
+				</span>
 			</div>
+	</form>
+	<div class="h_products_list clearfix">
+		<table id="simple-table" class="table table-bordered table-hover">
+			<thead>
+				<tr>
+					<th class="center" width="25px"><label class="pos-rel">
+							<input type="checkbox" id="parent_ck" class="ace"> <span
+							class="lbl"></span>
+					</label></th>
+					<th width="25px">序号</th>
+					<!-- <th>商品图片</th> -->
+					<th width="80px">商品编号</th>
+					<th width="200px">商品标题</th>
+					<th width="80px">商品价格（分）</th>
+					<th width="80px">库存数量</th>
+					<th width="100px">商品条形码</th>
+					<th width="100px">所属类目</th>
+					<th width="60px">商品状态</th>
+					<th width="140px">创建时间</th>
+					<th width="70px">操作</th>
+					<!-- <th class="hidden-480">Status</th> -->
+				</tr>
+			</thead>
+
+			<tbody>
+				<#list data.list as good>
+				<tr class="">
+					<td class="center"><label class="pos-rel"> <input
+							type="checkbox" name="child_ck" class="ace"> <span
+							class="lbl"></span>
+					</label></td>
+					<td>${good_index+1}</td>
+					<td>${good.id}</td>
+					<td>${good.title}</td>
+					<td>${good.price}</td>
+					<td>${good.num}</td>
+					<td>${(good.barcode)!''}</td>
+					<td>${good.itemCat.name}</td>
+					<td><#if good.status==1> <span
+							class="label label-sm label-success">正常</span> <#elseif
+							good.status==2> <span
+							class="label label-sm label-warning">下架</span> <#else> <span
+							class="label label-sm label-danger">删除</span></#if></td>
+					<td>${good.created?string("yyyy-MM-dd HH:mm:ss")}</td>
+					<td>
+						<div class="hidden-sm hidden-xs btn-group">
+							<button class="btn btn-xs btn-info">
+								<i class="ace-icon fa fa-pencil bigger-120"></i>
+							</button>
+							<button class="btn btn-xs btn-danger">
+								<i class="ace-icon fa fa-trash-o bigger-120"></i>
+							</button>
+
+						</div>
+					</td>
+				</tr>
+				</#list>
+			</tbody>
+		</table>
+		<div id="pageNum">
+			<!-- freemarker设置变量，因为分页页面要通用，每个页面的url不一样。 -->
+			<#assign url="/selectList.do"> 
+			<#include "pagination.html">
 		</div>
+	</div>
+	</div>
+	<script src="/static/ace-admin/js/fuelux/fuelux.tree.js"></script>
+	<script src="/static/ace-admin/js/ace-elements.js"></script>
+	<script src="/static/ace-admin/js/ace.js"></script>
+	<!-- 模态框（Modal） -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog" style="width: 940px;">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">添加商品</h4>
+				</div>
+				<div class="modal-body">
+				<div class="row">
+					<div class="col-sm-4">
+						<div class="widget-box widget-color-green2">
+							<div class="widget-header">
+								<h4 class="widget-title lighter smaller">请选择商品类别</h4>
+							</div>
+
+							<div class="widget-body" style="height:430px;overflow:auto;">
+								<div class="widget-main padding-8">
+									<ul id="tree"></ul>
+								</div>
+							</div>
+						</div>
+						</div>
+						<div class="col-sm-8">
+						<div class="widget-box widget-color-green2">
+						<div class="widget-header">
+								<h4 class="widget-title lighter smaller">请选择商品类别</h4>
+							</div>
+
+							<div class="widget-body">
+								<div class="widget-main padding-8">
+									111
+								</div>
+							</div>
+						</div>
+						</div>
+						</div>
+					<script type="text/javascript">
+						$(function() {
+							//var sampleData = initiateDemoData();//see below
+							var remoteUrl = '/getAllCat.do';
+					
+							var remoteDateSource = function(options, callback) {
+								var self = this;
+								var $data = null;
+					
+								if (!("name" in options) && !("type" in options)) {
+									$.ajax({
+										url : remoteUrl,
+										data : {
+											'parentId' : '0'
+										},
+										type : 'POST',
+										success : function(response) {
+											if (response.success)
+												callback({
+													data : response.data
+												})
+										},
+										error : function(response) {
+											//console.log(response);
+										}
+									});
+									return;
+								} else if ("type" in options && options.type == "folder") {
+									if ("additionalParameters" in options && "children" in options.additionalParameters)
+										$data = options.additionalParameters.children; //点击父节点，加载子节点
+									else
+										$data = {} //no data
+								}
+					
+								if ($data != null) //this setTimeout is only for mimicking some random delay
+									setTimeout(function() {
+										callback({
+											data : $data
+										});
+									}, parseInt(Math.random() * 500) + 200);
+					
+							};
+							$('#tree').ace_tree({
+								dataSource : remoteDateSource,
+								loadingHTML : '<div class="tree-loading"><i class="ace-icon fa fa-refresh fa-spin blue"></i></div>',
+								'open-icon' : 'ace-icon fa fa-folder-open',
+								'close-icon' : 'ace-icon fa fa-folder',
+								'itemSelect' : true,
+								'folderSelect' : true,
+								'multiSelect' : false,
+								'selected-icon' : null,
+								'unselected-icon' : null,
+								'folder-open-icon' : 'ace-icon tree-plus',
+								'folder-close-icon' : 'ace-icon tree-minus'
+							});
+						})
+					</script>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" data-dismiss="modal">关闭</button>
+					<button type="button" class="btn btn-info">提交</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal -->
 	</div>
 </body>
 </html>

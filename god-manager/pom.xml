@@ -17,6 +17,11 @@
 	</modules>
 	<dependencies>
 		<dependency>
+			<groupId>com.godding</groupId>
+			<artifactId>god-common</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 		</dependency>

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.god.manager.dao.TbItemMapper;
 import com.god.manager.domain.TbItem;
+import com.god.manager.domain.query.QueryObject;
 import com.god.manager.service.ITbItemService;
 
 @Service
@@ -29,8 +30,8 @@ public class TbItemServiceImpl implements ITbItemService {
 	}
 
 	@Override
-	public List<TbItem> selectAll() {
-		return tbItemMapper.selectAll();
+	public List<TbItem> selectAll(QueryObject queryObject) {
+		return tbItemMapper.selectAll(queryObject);
 	}
 
 	@Override

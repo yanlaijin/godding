@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.god.manager.domain.TbItem;
-import com.god.manager.query.Query;
+import com.god.manager.domain.query.Page;
+import com.god.manager.domain.query.QueryObject;
 import com.god.manager.service.ITbItemService;
 
 @Controller
@@ -18,9 +19,9 @@ public class TbItemController {
 	private ITbItemService tbItemService;
 	
 	@RequestMapping("/selectList.do")
-	public String selectList(ModelMap map,@ModelAttribute("query") Query query) {
+	public String selectList(ModelMap map,@ModelAttribute("query") Page query,@ModelAttribute("qo")QueryObject qo) {
 		PageHelper.startPage(query.getPageNum(), query.getPageSize());
-		PageInfo<TbItem> dataInfo = new PageInfo<TbItem>(tbItemService.selectAll());
+		PageInfo<TbItem> dataInfo = new PageInfo<TbItem>(tbItemService.selectAll(qo));
 		map.put("data", dataInfo);
 		return "goods";
 	}

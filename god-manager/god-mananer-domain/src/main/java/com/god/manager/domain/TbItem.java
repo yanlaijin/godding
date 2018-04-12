@@ -17,7 +17,7 @@ public class TbItem {
 
     private String image;
 
-    private Long cid;
+    private TbItemCat itemCat;
 
     private Byte status;
 
@@ -81,15 +81,15 @@ public class TbItem {
         this.image = image == null ? null : image.trim();
     }
 
-    public Long getCid() {
-        return cid;
-    }
+    public TbItemCat getItemCat() {
+		return itemCat;
+	}
 
-    public void setCid(Long cid) {
-        this.cid = cid;
-    }
+	public void setItemCat(TbItemCat itemCat) {
+		this.itemCat = itemCat;
+	}
 
-    public Byte getStatus() {
+	public Byte getStatus() {
         return status;
     }
 

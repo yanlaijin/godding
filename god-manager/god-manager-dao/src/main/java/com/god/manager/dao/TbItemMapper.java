@@ -1,6 +1,8 @@
 package com.god.manager.dao;
 
 import com.god.manager.domain.TbItem;
+import com.god.manager.domain.query.QueryObject;
+
 import java.util.List;
 
 public interface TbItemMapper {
@@ -10,7 +12,7 @@ public interface TbItemMapper {
 
     TbItem selectByPrimaryKey(Long id);
 
-    List<TbItem> selectAll();
+    List<TbItem> selectAll(QueryObject where);
 
     int updateByPrimaryKey(TbItem record);
 }
