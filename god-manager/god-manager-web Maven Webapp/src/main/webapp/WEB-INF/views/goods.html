@@ -57,7 +57,7 @@
 						<i class="ace-icon fa fa-plus"></i>添加商品</a>
 						<button type="button" class="btn btn-danger btn-sm"
 							style="margin-left:7px;">
-							<iclass ="ace-icon fafa-trash-obigger-120"> </i>批量删除</a>
+							<iclass ="ace-iconfafa-trash-obigger-120"> </i>批量删除</a>
 				</span>
 			</div>
 	</form>
@@ -140,34 +140,59 @@
 					<h4 class="modal-title" id="myModalLabel">添加商品</h4>
 				</div>
 				<div class="modal-body">
-				<div class="row">
-					<div class="col-sm-4">
-						<div class="widget-box widget-color-green2">
-							<div class="widget-header">
-								<h4 class="widget-title lighter smaller">请选择商品类别</h4>
-							</div>
+					<div class="row">
+						<div class="col-sm-4">
+							<div class="widget-box widget-color-green2">
+								<div class="widget-header">
+									<h4 class="widget-title lighter smaller">请选择商品类别</h4>
+								</div>
 
-							<div class="widget-body" style="height:430px;overflow:auto;">
-								<div class="widget-main padding-8">
-									<ul id="tree"></ul>
+								<div class="widget-body" style="height:430px;overflow:auto;">
+									<div class="widget-main padding-8">
+										<ul id="tree"></ul>
+									</div>
 								</div>
 							</div>
-						</div>
 						</div>
 						<div class="col-sm-8">
-						<div class="widget-box widget-color-green2">
-						<div class="widget-header">
-								<h4 class="widget-title lighter smaller">请选择商品类别</h4>
-							</div>
+							<div class="widget-box widget-color-green2">
+								<div class="widget-header">
+									<h4 class="widget-title lighter smaller">请选择商品类别</h4>
+								</div>
 
-							<div class="widget-body">
-								<div class="widget-main padding-8">
-									111
+								<div class="widget-body" style="height:430px;overflow:auto;">
+									<div class="widget-main padding-8">
+										<form>
+											<div class="form-group">
+												<label for="title">商品标题</label> <input
+													type="text" class="form-control" id="title" name="title"
+													placeholder="商品标题">
+											</div>
+											<div class="form-group">
+												<label for="sellPoint">商品卖点</label> <input
+													type="text" class="form-control" id="sellPoint" name="sellPoint"
+													placeholder="商品卖点">
+											</div>
+											<div class="form-group">
+												<label for="price">商品价格</label> <input
+													type="email" class="form-control" id="price" name="price"
+													placeholder="单位(元)">
+											</div>
+											<div class="form-group">
+												<label for=""num">库存数量</label> <input
+													type="email" class="form-control" id="num" name="num">
+											</div>
+											
+											<div class="form-group">
+												<label for="barcode">条形码</label> <input
+													type="email" class="form-control" id="barcode" name="barcode">
+											</div>
+										</form>
+									</div>
 								</div>
 							</div>
 						</div>
-						</div>
-						</div>
+					</div>
 					<script type="text/javascript">
 						$(function() {
 							//var sampleData = initiateDemoData();//see below
